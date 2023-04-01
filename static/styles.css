@@ -1,0 +1,743 @@
+.navbar-brand
+{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5px;
+}
+
+
+/* Index properties */
+
+#index
+{
+    width: 100%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#index .total
+{
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    font-size: 7vh;
+}
+
+#index .add
+{
+    max-width: 480px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+#index .row1
+{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#index .newType
+{
+    width: 37.11%;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    margin-right: 5px;
+
+}
+
+#index .newItem
+{
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+}
+
+#index .newQuantity
+{
+    width: 30%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-right: 5px;
+
+}
+
+#index .newPrice
+{
+    width: 30%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+
+}
+
+#index .addBtn
+{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: black;
+    color: white;
+    transition-duration: 0.4s
+}
+
+#index .addBtn:hover
+{
+    background-color: #f9b02e;
+    color: black;
+}
+
+#index .addBtn > b:hover
+{
+    color: white;
+}
+
+#index .actions
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#index .actions .button
+{
+    transition-duration: 0.4s;
+    width: 90px;
+    height: 40px;
+    border-radius: 0;
+}
+
+#index img.basket, #index img.reset, #index img.save, #index img.edit
+{
+    width: 25px;
+}
+
+#index .basketBtn:hover, #index .resetBtn:hover, #index .saveBtn:hover, #index .editBtn:hover
+{
+    background-color: #f9b02e;
+}
+
+#index .indexTable
+{
+    max-width: 1200px;
+    margin: auto;
+
+}
+
+#index table
+{
+    width: 100%;
+}
+
+#index thead
+{
+    border-bottom: solid 1px;
+}
+
+#index th
+{
+    text-align: center;
+    font-size: 2vh;
+}
+
+#index th.quantity, #index th.price, #index th.qp
+{
+    width: 15%;
+}
+
+#index td
+{
+    text-align: center;
+    font-size: 2vh;
+}
+
+#index th.type
+{
+    width: 18%;
+}
+
+#index tr:nth-child(even)
+{
+    background-color: #f9b02e;
+}
+
+#index .hideArea
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#index .hideBtn
+{
+    width: 30px;
+    background-color: transparent;
+    border: 0;
+    margin: auto;
+}
+
+#index .hide
+{
+    width: inherit;
+}
+
+#index .delete
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#index .delete select
+{
+    max-width: 270px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+}
+
+#index .delete .deleteBtn
+{
+    height: 33px;
+    width: 66px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+}
+
+
+/* Summary */
+
+#summary
+{
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#summary .allExpenses, #summary .grocery, #summary .bills
+{
+    margin-right: 20px;
+}
+
+#summary .totalExpense
+{
+
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-size: 7vh;
+}
+
+#summary .expense
+{
+    margin-bottom: 20px;
+}
+
+#summary .filter
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#summary .filter .button
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition-duration: 0.4s;
+    width: 120px;
+    height: 40px;
+    margin: 2px;
+    border-radius: 0;
+    border: 1px solid black;
+    background-color: black;
+    color: white
+}
+
+#summary .editDeleteBtn:hover, #summary .filterBtn:hover, #summary .saveBtn:hover
+{
+    background-color: #f9b02e;
+    color: black;
+}
+
+#summary .monthSelect
+{
+    text-align: center;
+}
+
+#summary .hideArea
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#summary .hideBtn
+{
+    width: 30px;
+    background-color: transparent;
+    border: 0;
+    margin: auto;
+}
+
+#summary .hide
+{
+    width: inherit;
+}
+
+#summary .editDelete
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#summary .editIconBtn, #summary .deleteIconBtn, #summary .hideEditDeleteBtn
+{
+    width: 90px;
+    height: 40px;
+    border-radius: 0;
+    border: 0;
+    background-color: transparent;
+    transition-duration: 0.4s;
+}
+
+#summary .editIconBtn:hover, #summary .deleteIconBtn:hover, #summary .hideEditDeleteBtn:hover,
+{
+    background-color: #f9b02e;
+}
+
+
+#summary img.editIcon, #summary img.deleteIcon, #summary img.hideEditDeleteIcon
+{
+    width: 25px;
+}
+
+#summary .editRow form
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+#summary .editRow select
+{
+    margin-bottom: 5px;
+}
+
+#summary .editRow input
+{
+    margin-bottom: 5px;
+}
+
+#summary .editRow button
+{
+    height: 38px;
+    width: 66px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+}
+
+#summary .deleteRow form
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+#summary .deleteRow select
+{
+    margin-right: 5px;
+    height: 35px;
+    width: 175px;
+}
+
+#summary .deleteRow button
+{
+    height: 38px;
+    width: 66px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+}
+
+#summary .text
+{
+    margin-bottom: 20px;
+}
+
+#summary .dateForm
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 2px;;
+}
+
+#summary .monthSelect .dateSelect
+{
+    height: inherit;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 30px;
+    margin-right: 5px;
+}
+
+#summary .monthSelect .dateSubmit
+{
+    border: 1px solid;
+    height: inherit;
+    width: 120px;
+    color: white;
+    background-color: black;
+    border-radius: 0 20px 20px 0;
+}
+
+#summary .toggle
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+#summary .toggle1
+{
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+#summary .toggle2
+{
+    margin-bottom: 50px;
+}
+
+#summary .toggle button
+{
+    border: 0;
+    height: 40px;
+    width: 100px;
+    color: black;
+    text-align: center;
+    background-color: white;
+    background: linear-gradient(to left, white 50%, #f9b02e 50%) right;
+    background-size: 200%;
+    transition: 0.2s ease-out;
+    border-radius: 0 20px 20px 0;
+    text-decoration: underline;
+}
+
+#summary .toggle .button:hover
+{
+    color: black;
+    background-position: left;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#summary .tables
+{
+    max-width: 1200px;
+    margin: auto;
+}
+
+#summary table
+{
+    width: 100%;
+    margin: auto;
+    margin-top: 0px;
+}
+
+#summary thead
+{
+    border-bottom: solid 1px;
+}
+
+#summary th
+{
+    text-align: center;
+}
+
+#summary th.item
+{
+    width: 30%;
+}
+
+#summary th.price, #summary th.qp
+{
+    width: 15%;
+}
+
+#summary th.quantity #summary th.date
+{
+    width: 10%;
+}
+
+#summary td, #summary th
+{
+    text-align: center;
+    font-size: 2vh;
+}
+
+#summary tr:nth-child(even)
+{
+    background-color: #f9b02e;
+}
+
+
+/* Registration */
+
+#registration
+{
+    margin-top: 60px;
+}
+
+#registration p.restrictions
+{
+    width: 220px;
+    font-size: 12px;
+    color: #959393;
+    margin-top: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    text-align: left;
+}
+
+#registration .buttonArea
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#registration .registerBtn
+{
+    border: 0;
+    height: 40px;
+    width: 150px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+}
+
+
+/* Login */
+
+#login
+{
+    margin-top: 60px;
+}
+
+#login .buttonArea
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#login .loginBtn
+{
+    border: 0;
+    height: 40px;
+    width: 150px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+}
+
+
+/* Budget */
+
+#budget
+{
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#budget .remainingBudget
+{
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-size: 7vh;
+}
+
+#budget .remainingBudget .text
+{
+    margin-bottom: 20px;
+}
+
+#budget .setBudget
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#budget .setBudget .button
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    transition-duration: 0.4s;
+    width: 120px;
+    height: 40px;
+    margin: 2px;
+    border-radius: 0;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+}
+
+#budget .budgetBtn:hover, #budget .summaryBtn:hover, #budget .dateBtn:hover, #budget .breakdownBtn:hover
+{
+    background-color: #f9b02e;
+    color: black;
+}
+
+#budget .selectDate
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#budget .selectDate select
+{
+    height: 38px;
+    max-width: 270px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin-right: 2px;
+}
+
+#budget .selectDate .dateSubmitBtn
+{
+    height: 38px;
+    width: 66px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+}
+
+#budget .selectBudget
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#budget .selectBudget select
+{
+    height: 38px;
+    max-width: 270px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin-right: 2px;
+}
+
+#budget .selectBudget input
+{
+    width: 120px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin-right: 2px;
+}
+
+#budget .selectBudget .budgetSubmitBtn
+{
+    height: 38px;
+    width: 66px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    border: 0;
+}
+
+#budget .hideArea
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+#budget .hideBtn
+{
+    width: 30px;
+    background-color: transparent;
+    border: 0;
+    margin: auto;
+}
+
+#budget img.hide
+{
+    width: 30px;
+}
+
+#budget .budgetTables
+{
+    max-width: 1200px;
+    margin: auto;
+}
+
+#budget table
+{
+    width: 100%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#budget .summaryTable
+{
+    text-align: center;
+}
+
+#budget thead
+{
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    font-size: 2vh;
+}
+
+#budget .columnOne
+{
+    width: 20%;
+}

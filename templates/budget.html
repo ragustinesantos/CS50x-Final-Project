@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Container for Page Body -->
+    <div id="budget" class="budget">
+
+        <!-- Budget Display -->
+        <div class="remainingBudget">
+            <div class="text"><h3><b>Remaining Budget</b></h3></div>
+            <div class="remainingValue"><p><b>{{ remainingBudget | cad }}</b></p></div>
+        </div>
+
+        <!-- Set Budget -->
+        <div id="setBudget" class="setBudget">
+            <button class="button breakdownBtn" type="button">Breakdown</button>
+            <button class="button dateBtn" type="button">Date</button>
+            <button class="button budgetBtn" type="button">Budget</button>
+            <button class="button summaryBtn" type="button">Summary</button>
+        </div>
+
+        <!-- Select Date -->
+        <div class="selectDate">
+            <form action="/budget" method="post">
+                <select name="month" type="radio">
+                    <option selected disabled>Month</option>
+                    {% for item in monthList %}
+                    <option>{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <select name="year" type="radio">
+                    <option selected disabled>Year</option>
+                    {% for item in yearList %}
+                    <option>{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <button class="button dateSubmitBtn" type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Set Budget -->
+        <div class="selectBudget">
+            <form action="/set" method="post">
+                <select name="month" type="radio">
+                    <option selected disabled>Month</option>
+                    {% for item in monthList %}
+                    <option>{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <select name="year" type="radio">
+                    <option selected disabled>Year</option>
+                    {% for item in yearList %}
+                    <option>{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <input autocomplete="off" id="budgetInput" class="budgetInput" name="budget" placeholder="Budget" type="number">
+                <button class="button budgetSubmitBtn" type="submit">Set</button>
+            </form>
+        </div>
+
+        <!-- Hide Button Area -->
+        <div class="hideArea">
+            <button class="hideBtn" type="button">
+                <img class="hide" src="/static/iconmonstr-eye-off-lined-240.png">
+            </button>
+        </div>
+
+        <!-- Container for Tables -->
+        <div class="budgetTables">
+
+            <!-- Table of selected month's breakdown of expenses and budget -->
+            <table id="currentTable" class="currentTable">
+                <thead style="font-size: 3vh;">
+                    <th class="columnOne">Summary</th>
+                    <th></th>
+                    <th style="text-align: right;">{{ month }}/{{ year }}</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="columnOne"><b>(+)Budget</b></td>
+                        <td></td>
+                        <td style="text-align: right;"><b>{{ setBudget | cad}}</b></td>
+                    </tr>
+                    <tr>
+                        <td class="columnOne"><b>(-)Expenses</b></td>
+                        <td></td>
+                        <td style="text-align: right; color: red;"><b>-{{ sumTotal | cad }}</b></td>
+                    </tr>
+                    <tr>
+                        <td class="columnOne" style="text-align: right; font-style: italic;">Grocery</td>
+                        <td></td>
+                        <td style="text-align: right; font-style: italic;">-{{ sumGrocery | cad }}</td>
+                    </tr>
+                    <tr>
+                        <td class="columnOne" style="text-align: right; font-style: italic;">Bills</td>
+                        <td></td>
+                        <td style="text-align: right; font-style: italic;">-{{ sumBills | cad }}</td>
+                    </tr>
+                    <tr>
+                        <td class="columnOne" style="text-align: right; font-style: italic;">Misc</td>
+                        <td></td>
+                        <td style="text-align: right; font-style: italic;">-{{ sumMisc | cad }}</td>
+                    </tr>
+                    <tr>
+                        <td class="columnOne" style="text-align: right; font-style: italic;">Food</td>
+                        <td></td>
+                        <td style="text-align: right; font-style: italic;">-{{ sumFood | cad }}</td>
+                    </tr>
+                    <tr>
+                        <td class="columnOne" style="text-align: right; font-style: italic;">Transportation</td>
+                        <td></td>
+                        <td style="text-align: right; font-style: italic;">-{{ sumTranspo | cad }}</td>
+                    </tr>
+                    <tr style="border-top: 1px solid black; font-size: 3vh;">
+                        <td><b>Savings</b></td>
+                        <td></td>
+                        <td style="text-align: right;"><b>{{ remainingBudget | cad }}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Table of summary of expenses per month and year -->
+            <table id="summaryTable" class="summaryTable">
+                <thead>
+                    <th>Year</th>
+                    <th>Month</th>
+                    <th>Budget</th>
+                    <th>Expense</th>
+                    <th>Savings</th>
+                </thead>
+                <tbody>
+                    {% for date in summaryBudget %}
+                    <tr>
+                        <td>{{ date.year }}</td>
+                        <td>{{ date.month }}</td>
+                        <td>{{ date.budget | cad }}</td>
+                        <td>{{ date.expense | cad }}</td>
+                        <td>{{ (date.budget - date.expense) | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Javascript -->
+    <script>
+
+        // Hide all elements aside from the table for the current month by default
+        $(".selectBudget").hide()
+        $(".selectDate").hide()
+        $(".summaryTable").hide()
+        $(".hideArea").hide()
+
+        // When breakdownBtn is clicked, reveal table of currently selected date and hide all other elements
+        $(".breakdownBtn").click(function() {
+            $(".summaryTable").hide()
+            $(".hideArea").slideUp("fast").hide(500)
+            $(".selectBudget").slideUp("fast").hide(500)
+            $(".selectDate").slideUp("fast").hide(500)
+            $(".currentTable").slideDown("fast").show(500)
+        });
+
+        // When budgetBtn is clicked, reveal budget selection and hide button, and hide all other filters
+        $(".budgetBtn").click(function() {
+            $(".selectDate").hide()
+            $(".hideArea").slideDown("fast").show(500)
+            $(".selectBudget").slideDown("fast").show(500)
+        });
+
+        // When hideBtn is clicked, hide all filters
+        $(".hideBtn").click(function() {
+            $(".hideArea").slideUp("fast").hide(500)
+            $(".selectBudget").slideUp("fast").hide(500)
+            $(".selectDate").slideUp("fast").hide(500)
+        });
+
+        // When summary button is clicked reveal summary table, then hide all other elements
+        $(".summaryBtn").click(function() {
+            $(".currentTable").hide()
+            $(".hideArea").slideUp("fast").hide(500)
+            $(".selectBudget").slideUp("fast").hide(500)
+            $(".selectDate").slideUp("fast").hide(500)
+            $(".summaryTable").slideDown("fast").show(500)
+        });
+
+        // When dateBtn is clicked reveal hide button and date selection, then hide other filters
+        $(".dateBtn").click(function() {
+            $(".hideArea").show()
+            $(".selectBudget").hide()
+            $(".selectDate").slideDown("fast").show(500)
+        });
+
+    </script>
+
+{% endblock %}

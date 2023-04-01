@@ -1,0 +1,366 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Container for Page Body -->
+    <div id="summary">
+
+        <!-- Total Expense Display -->
+        <div class="totalExpense">
+            <div class="expense"><h3><b>Total Expenses</b></h3></div>
+            <div class="expenseValue sumTotal"><p><b>{{ sumTotal | cad }}</b></p></div>
+            <div class="expenseValue sumGrocery"><p><b>{{ sumGrocery | cad }}</b></p></div>
+            <div class="expenseValue sumBills"><p><b>{{ sumBills | cad }}</b></p></div>
+            <div class="expenseValue sumMisc"><p><b>{{ sumMisc | cad }}</b></p></div>
+            <div class="expenseValue sumFood"><p><b>{{ sumFood | cad }}</b></p></div>
+            <div class="expenseValue sumTranspo"><p><b>{{ sumTranspo | cad }}</b></p></div>
+        </div>
+
+        <!-- Date Filter -->
+        <div id="filter" class="filter">
+            <button class="button editDeleteBtn" type="button">Edit/Delete</button>
+            <button class="button filterBtn" onclick="filterReveal()" type="button">Select Date</button>
+            <button class="button saveBtn" type="button">Save</button>
+        </div>
+
+        <!-- Edit & Delete Icons -->
+        <div class="editDelete">
+            <button class="button editIconBtn" type="button">
+                <img class="editIcon" src="/static/iconmonstr-pencil-line-filled-240.png" alt="edit icon">
+            </button>
+            <button class="button deleteIconBtn" type="button">
+                <img class="deleteIcon" src="/static/iconmonstr-x-mark-5-240.png" alt="delete icon">
+            </button>
+            <button class="hideEditDeleteBtn" type="button">
+                <img class="hideEditDeleteIcon" src="/static/iconmonstr-eye-off-lined-240.png">
+            </button>
+        </div>
+
+        <!-- Edit & Delete Area -->
+        <div class="manipulate">
+            <div class="editRow">
+                <form action="/editSummary" method="post">
+                    <select name="editTrans">
+                        <option selected disabled>Trans #</option>
+                        {% for row in totalSelection %}
+                            <option>{{ row.trans_number }}</option>
+                        {% endfor %}
+                    </select>
+                    <input required autocomplete="off" id="editItem" class="editItem" name="item" placeholder="Item">
+                    <input required autocomplete="off" id="editQuantity" class="editQuantity" name="quantity" placeholder="Quantity">
+                    <input required autocomplete="off" id="editPrice" class="editPrice" name="price" placeholder="Price">
+                    <button class ="button editSubmit" type="submit">Edit</button>
+                </form>
+            </div>
+            <div class="deleteRow">
+                <form action="/deleteSummary" method="post">
+                    <select name="deleteTrans">
+                        <option selected disabled>Trans #</option>
+                        {% for row in totalSelection %}
+                            <option>{{ row.trans_number }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="button deleteSubmit" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Select Date -->
+        <div id="monthSelect" class="monthSelect">
+            <div class="text"><b>EXPENSES FOR: </b></div>
+            <form class="dateForm" method="post">
+                <select class="dateSelect month" name="month" type="radio">
+                    <option selected>{{ displayMonth }}</option>
+                    {% for month in monthList %}
+                    <option>{{ month }}</option>
+                    {% endfor %}
+                </select>
+                <select class="dateSelect year" name="year" type="radio">
+                    <option selected>{{ displayYear }}</option>
+                    {% for year in yearList %}
+                    <option>{{ year }}</option>
+                    {% endfor %}
+                </select>
+                <button class="dateSubmit" type="submit">GO</button>
+            </form>
+            <div class="hideArea">
+                <button class="hideBtn" onclick="hideFilter()" type="button">
+                    <img class="hide" src="/static/iconmonstr-eye-off-lined-240.png">
+                </button>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="toggle toggle1">
+            <button class="button allExpenses" onclick="changeCategory('.summaryTotal tr', '.sumTotal')" type="button">Total</button>
+            <button class="button grocery" onclick="changeCategory('.summaryGrocery tr', '.sumGrocery')" type="button">Groceries</button>
+            <button class="button bills" onclick="changeCategory('.summaryBills tr', '.sumBills')" type="button">Bills</button>
+            <button class="button misc" onclick="changeCategory('.summaryMisc tr', '.sumMisc')" type="button">Misc</button>
+        </div>
+        <div class="toggle toggle2">
+            <button class="button food" onclick="changeCategory('.summaryFood tr', '.sumFood')" type="button">Food</button>
+            <button class="button transpo" onclick="changeCategory('.summaryTranspo tr', '.sumTranspo')" type="button">Transpo</button>
+        </div>
+
+        <!-- Container for Tables -->
+        <div id="tables" class="tables">
+
+            <!-- Total Expenses Table -->
+            <table id="summaryTotal" class="summaryTotal">
+                <thead>
+                    <th>Trans</th>
+                    <th class="date">Date</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for row in totalSelection %}
+                    <tr>
+                        <td>{{ row.trans_number }}</td>
+                        <td class="date">{{ row.month }}/{{ row.day }}/{{ row.year }}</td>
+                        <td class="item">{{ row.item }}</td>
+                        <td class="quantity">{{ row.quantity }}</td>
+                        <td class="price">{{ row.price | cad}}</td>
+                        <td class="qp">{{ row.total | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total Grocery Table -->
+            <table id="summaryGrocery" class="summaryGrocery">
+                <thead>
+                    <th>Trans</th>
+                    <th class="date">Date</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for row in grocerySelection %}
+                    <tr>
+                        <td>{{ row.trans_number }}</td>
+                        <td class="date">{{ row.month }}/{{ row.day }}/{{ row.year }}</td>
+                        <td class="item">{{ row.item }}</td>
+                        <td class="quantity">{{ row.quantity }}</td>
+                        <td class="price">{{ row.price | cad}}</td>
+                        <td class="qp">{{ row.total | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total Bills Table -->
+            <table id="summaryBills" class="summaryBills">
+                <thead>
+                    <th>Trans</th>
+                    <th class="date">Date</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for row in billsSelection %}
+                    <tr>
+                        <td>{{ row.trans_number }}</td>
+                        <td class="date">{{ row.month }}/{{ row.day }}/{{ row.year }}</td>
+                        <td class="item">{{ row.item }}</td>
+                        <td class="quantity">{{ row.quantity }}</td>
+                        <td class="price">{{ row.price | cad}}</td>
+                        <td class="qp">{{ row.total | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total Miscellaneous Table -->
+            <table id="summaryMisc" class="summaryMisc">
+                <thead>
+                    <th>Trans</th>
+                    <th class="date">Date</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for row in miscSelection %}
+                    <tr>
+                        <td>{{ row.trans_number }}</td>
+                        <td class="date">{{ row.month }}/{{ row.day }}/{{ row.year }}</td>
+                        <td class="item">{{ row.item }}</td>
+                        <td class="quantity">{{ row.quantity }}</td>
+                        <td class="price">{{ row.price | cad}}</td>
+                        <td class="qp">{{ row.total | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total Food Table -->
+            <table id="summaryFood" class="summaryFood">
+                <thead>
+                    <th>Trans</th>
+                    <th class="date">Date</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for row in foodSelection %}
+                    <tr>
+                        <td>{{ row.trans_number }}</td>
+                        <td class="date">{{ row.month }}/{{ row.day }}/{{ row.year }}</td>
+                        <td class="item">{{ row.item }}</td>
+                        <td class="quantity">{{ row.quantity }}</td>
+                        <td class="price">{{ row.price | cad}}</td>
+                        <td class="qp">{{ row.total | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Total Transportation Table -->
+            <table id="summaryTranspo" class="summaryTranspo">
+                <thead>
+                    <th>Trans</th>
+                    <th class="date">Date</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for row in transpoSelection %}
+                    <tr>
+                        <td>{{ row.trans_number }}</td>
+                        <td class="date">{{ row.month }}/{{ row.day }}/{{ row.year }}</td>
+                        <td class="item">{{ row.item }}</td>
+                        <td class="quantity">{{ row.quantity }}</td>
+                        <td class="price">{{ row.price | cad}}</td>
+                        <td class="qp">{{ row.total | cad }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Javascript -->
+    <script>
+
+        // Hide all tables, all expense values and all filters
+        $("table tr").hide();
+        $(".expenseValue").hide();
+        $(".monthSelect").hide();
+        $(".editRow").hide();
+        $(".deleteRow").hide();
+        $(".editDelete").hide();
+
+
+        // On page load of summary.html, reveal sum of total expenses and table of all expenses by default
+        window.onload = function() {
+            $(".summaryTotal tr").each(function(index){
+                $(this).show(500);
+            });
+
+            $(".sumTotal").show();
+        };
+
+        // Every time a category has been chosen, display its corresponding total expense value and table of transactions
+        function changeCategory(categoryTable, categoryExpense) {
+
+            // Hide table and total expense values by default
+            $("table tr").hide();
+            $(".expenseValue").hide();
+
+            // Reveeal table values for chosen category
+            $(categoryTable).each(function(index){
+                $(this).show(500);
+            });
+
+            // Reveeal total expense value for chosen category
+            $(categoryExpense).show();
+
+        };
+
+        // Clicking the .filterBtn button will reveal the month selection field and hide all other filters
+        $(".filterBtn").click(function() {
+            $(".editDelete").hide()
+            $(".editRow").hide()
+            $(".deleteRow").hide()
+            $(".monthSelect").slideDown("fast").show(500)
+        });
+
+        // Clicking the .hideBtn button will hide the monthSelect field
+        $(".hideBtn").click(function() {
+            $(".monthSelect").slideUp("fast").hide(500)
+        });
+
+        // Function for writing revealed table of the chosen category to a new page for printing
+        function printData()
+        {
+            // Assign the table to a variable
+            const x = document.getElementById("tables");
+
+            // Open a new page
+            newPage = window.open("");
+
+            // Write table to a chosen variable
+            newPage.document.write(x.outerHTML);
+
+            // Assign tables within div to a variable and format each one to take up the whole width and center it
+            const y = newPage.document.querySelectorAll("#tables table");
+            for(var i=0; i<y.length; i++){
+                y[i].style.margin = "auto";
+                y[i].style.width = "100%";
+                y[i].style.textAlign = "center";
+            }
+
+            // Print the page
+            newPage.print();
+
+            // Close the page after action
+            newPage.close();
+        }
+
+        // Clicking the .saveBtn button will trigger the printData() function
+        $('.saveBtn').on('click',function(){
+            printData();
+        })
+
+        // Clicking the editDeleteBtn will reveal the editDelete area and hide other filters
+        $(".editDeleteBtn").click(function() {
+            $(".monthSelect").hide()
+            $(".editDelete").slideDown("fast").show(500)
+        });
+
+        // Clicking the deleteIconBtn will reveal the delete field and hide the edit field
+        $(".deleteIconBtn").click(function() {
+            $(".editRow").hide()
+            $(".deleteRow").slideDown("fast").show(500)
+        });
+
+        // Clicking the editIconBtn will reveal the edit field and hide the delete field
+        $(".editIconBtn").click(function() {
+            $(".deleteRow").hide()
+            $(".editRow").slideDown("fast").show(500)
+        });
+
+        // Clicking the hideEditDeleteBtn will hide the edit and delete fields as the editDelete area which contains the edit & delete buttons
+        $(".hideEditDeleteBtn").click(function() {
+            $(".editDelete").slideUp("fast").hide(500)
+            $(".editRow").slideUp("fast").hide(500)
+            $(".deleteRow").slideUp("fast").hide(500)
+        });
+
+    </script>
+
+{% endblock %}

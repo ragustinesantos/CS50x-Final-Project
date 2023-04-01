@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Container for page body -->
+    <div id="login">
+
+        <!-- Form for passing login information of username and password -->
+        <form action="/login" method="post">
+
+            <!-- Username -->
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+            </div>
+
+            <!-- Log In Button Area -->
+            <div class="buttonArea">
+                <button class="loginBtn" type="submit">Log In</button>
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}

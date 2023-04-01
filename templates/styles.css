@@ -1,0 +1,28 @@
+body
+{
+    background-color: black;
+}
+
+
+#sample .container
+{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#sample .square
+{
+    width: 260px;
+    height: 260px;
+    background-color: gray;
+    border-radius: 20%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

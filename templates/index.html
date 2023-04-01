@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Container for Page Body -->
+    <div id="index">
+
+        <!-- Total Cart Display -->
+        <div class="total">
+            <h3><b>CART TOTAL</b></h3>
+            <p><b>{{ total | cad }}</b></p>
+        </div>
+
+        <!-- Add Item Field -->
+        <div class="add">
+            <form action="/add" method="post">
+                <div class="row1">
+                    <select class="newType" name="newType" type="radio">
+                        <option disabled selected>Type</option>
+                        {% for transaction in type %}
+                            <option>{{ transaction.transactions }} </option>
+                        {% endfor %}
+                    </select>
+                    <input autocomplete="off" class="newQuantity" id="newQuantity" name="newQuantity" placeholder="Quantity" type="numeric">
+                    <input autocomplete="off" class="newPrice" id="newPrice" name="newPrice" placeholder="Price" type="numeric">
+                </div>
+                <div class="row2">
+                    <input autocomplete="off" class="newItem" id="newItem" name="newItem" placeholder="Item Name" type="text">
+                </div>
+                <button class="btn btn-dark addBtn" type="submit">+</button>
+            </form>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <div class="basket">
+                <button id="basket" class="btn btn-transparent button basketBtn" type="button">
+                        <img class="basket" src="/static/iconmonstr-shopping-cart-3-240.png" alt="Cart">
+                </button>
+            </div>
+            <form onsubmit="return confirm('Resetting will clear the cart. Proceed?')" action="/reset" method="post">
+                <button id="reset" class="btn btn-transparent button resetBtn" type="submit">
+                    <img class="reset" src="/static/iconmonstr-refresh-lined-240.png" alt="Reset">
+                </button>
+            </form>
+            <form onsubmit="return confirm('Saving the session will save the cart activity to your account and clear the current session. Proceed?')" action="/save" method="post">
+                <button id="save" class="btn btn-transparent button saveBtn" type="submit">
+                    <img class="save" src="/static/iconmonstr-save-14-240.png" alt="Save">
+                </button>
+            </form>
+            <div class="edit">
+                <button id="edit" class="btn btn-transparent button editBtn" type="button">
+                        <img class="edit" src="/static/iconmonstr-x-mark-5-240.png" alt="Edit">
+                </button>
+            </div>
+        </div>
+
+        <!-- Hide Button -->
+        <div id="hideArea" class="hideArea">
+            <button id="hide" class="hideBtn" type="button">
+                <img class="hide" src="/static/iconmonstr-eye-off-lined-240.png">
+            </button>
+        </div>
+
+        <!-- Table -->
+        <div id="indexTable" class="indexTable">
+
+            <table>
+                <thead>
+                    <th class="trans">Trans</th>
+                    <th class="type">Type</th>
+                    <th class="item">Item</th>
+                    <th class="quantity">Qty</th>
+                    <th class="price">Price</th>
+                    <th class="qp">Total</th>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                        <tr>
+                            <td class="trans">{{ item.trans_number }}</td>
+                            <td class="type">{{ item.type }}</td>
+                            <td class="item">{{ item.item }}</td>
+                            <td class="quantity">{{ item.quantity }}</td>
+                            <td class="price">{{ item.price | cad }}</td>
+                            <td class="qp">{{ item.total | cad }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Delete Field -->
+        <div class="delete">
+            <form action="/delete" method="post">
+                <select name="deleteItem" type="radio">
+                    <option selected disabled>Transaction Number</option>
+                    {% for item in cart %}
+                    <option>{{ item.trans_number }}</option>
+                    {% endfor %}
+                </select>
+                <button id="deleteBtn" class="deleteBtn" type="submit">Delete</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+
+        // Hide table rows, hide button and delete filter by defautlt
+        $("table tr").hide();
+        $(".hideArea").hide();
+        $(".delete").hide();
+
+        // Clicking the hideBtn will hide all table rows and the delete filter
+        $(".hideBtn").click(function() {
+            $(".hideArea").slideUp("fast").hide(500);
+            $("table tr").slideUp("fast").hide(500);
+            $(".delete").slideUp("fast").hide(500);
+        });
+
+        // Clicking the basketBtn will reveal the table rows of the session and hide the delete filter
+        $(".basketBtn").click(function() {
+            $(".delete").hide();
+            $(".hideArea").slideDown("fast").show(500)
+            $("table tr").each(function(index){
+                $(this).delay().show(500);
+            });
+        });
+
+        // Clicking the editBtn will hide all table rows and reveal the hide button and delete filter
+        $(".editBtn").click(function() {
+            $("table tr").hide();
+            $(".hideArea").hide();
+            $(".hideArea").slideDown("fast").show(500)
+            $(".delete").delay().slideDown("fast").show(500)
+        });
+
+    </script>
+
+{% endblock %}

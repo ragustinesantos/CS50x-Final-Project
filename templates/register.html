@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Conatianer for page body -->
+    <div id="registration">
+
+        <!-- Form for passing desired username and password for assessment and registering -->
+        <form action="/register" method="post">
+
+            <!-- Request for username - limited to 5-20 alphanumeric characters including '_' and '.' -->
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" pattern="[-a-zA-Z0-9_.]{5,20}" placeholder="Username" type="text">
+                <p class="restrictions">
+                    *5-20 alphanumeric chars only
+                </p>
+            </div>
+
+            <!-- Request for password - at least 8 alphanumeric characters and symbols -->
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" pattern="[-a-zA-Z0-9!@#$%^&*(\)/.:;'_]{8,}" type="password">
+                <p class="restrictions">
+                    *Must contain at least 8 characters
+                    <br>
+                    *Alphanumeric chars or symbols only
+                </p>
+            </div>
+
+            <!-- Password confirmation -->
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" required id="confirmation" name="confirmation" placeholder="Confirm Password" type="password">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="buttonArea">
+                <button class="registerBtn" type="submit">Register</button>
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock %}
